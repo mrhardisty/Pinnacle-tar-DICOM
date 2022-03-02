@@ -1608,6 +1608,13 @@ def readtrial(ds, planfolder, plannumber):
                 beammu = 0 
                 continue
             ds.FractionGroupSequence[0].ReferencedBeamSequence[beamcount - 1].BeamDose = float(re.findall(r"[-+]?\d*\.\d+|\d+", line)[0])/100
+            print(normdose)
+            print(PDD6MV)
+            print(OFc)
+            #ugly hack to prevent division by zero
+            if OFc==0:
+                OFc=1.0
+
             if beamenergies[beamcount-1] == '6': 
                 beammu = float(re.findall(r"[-+]?\d*\.\d+|\d+", line)[0])/(normdose*PDD6MV*OFc)
             elif beamenergies[beamcount-1] == '15': 
